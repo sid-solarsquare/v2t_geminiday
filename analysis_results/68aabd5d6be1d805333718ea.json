@@ -1,0 +1,53 @@
+{
+    "transcription": {
+        "english": "- speaker: speaker_0\n  line: \"Hello?\"\n- speaker: speaker_1\n  line: \"Hello. Uh, Tuushar ji se baat ho rahi hai?\"\n- speaker: speaker_0\n  line: \"Ji.\"\n- speaker: speaker_1\n  line: \"Uh, good afternoon sir, main Ashika baat kar rahi hoon, Solar Square se. Aapka requirement receive hua tha sir, solar ke liye.\"\n- speaker: speaker_0\n  line: \"Hmm.\"\n- speaker: speaker_1\n  line: \"Uh, to aap commercial ke liye plan kar rahe hain, residential ke liye kar rahe ho? Ghar ke liye? Ghar ke liye, ghar ke liye.\"\n- speaker: speaker_0\n  line: \"Okay, okay.\"\n- speaker: speaker_1\n  line: \"Aapka monthly average bill kitna aata hai sir?\"\n- speaker: speaker_0\n  line: \"Uh, per floor, jaise aata hai, teen, saade teen hazaar tak.\"\n- speaker: speaker_1\n  line: \"Okay. Uh, kitne floors hain sir?\"\n- speaker: speaker_0\n  line: \"Teen.\"\n- speaker: speaker_1\n  line: \"3 meter hai sir, aapke? Hmm, 3 meter alag hai.\"\n- speaker: speaker_0\n  line: \"Okay.\"\n- speaker: speaker_1\n  line: \"3 meter hai alag.\"\n- speaker: speaker_0\n  line: \"Okay. Theek hai. Uh, teenon pe installation karna hai sir?\"\n- speaker: speaker_1\n  line: \"Hmm, ek se matlab kuch fark padega? Jaise teen pe karte hain aur ek pe karte to kya fark padta hai matlab?\"\n- speaker: speaker_0\n  line: \"Nahi, nahi. Jaise har meter ke liye ek hi solar lagta hai sir, jaise theek hai? Ek ka batana mujhe. Ek karna ho to.\"\n- speaker: speaker_1\n  line: \"Okay. Roof size kitna square feet hai?\"\n- speaker: speaker_0\n  line: \"Uh, 100 square feet. Ha, 100 gaj ka. 100 gaj ka. Theek hai.\"\n- speaker: speaker_1\n  line: \"Aur roof type jo hai, wo RCC hai sir?\"\n- speaker: speaker_0\n  line: \"RCC matlab? Matlab, jentara wala?\"\n- speaker: speaker_1\n  line: \"Ha, jentara wala.\"\n- speaker: speaker_0\n  line: \"Okay. Meter and property, ye aapke naam pe hai?\"\n- speaker: speaker_1\n  line: \"Ha.\"\n- speaker: speaker_0\n  line: \"Construction complete hai na sir?\"\n- speaker: speaker_1\n  line: \"Completeated hai, rahe hain, bahut time se.\"\n- speaker: speaker_0\n  line: \"Okay. Theek hai. Uh, main company se do free visit provide ki jaati hai sir, jismein koi\"\n- speaker: speaker_1\n  line: \"Nahi, nahi. Ek idea toh do, main, fir bhi kitne tak ka hota hai waise? Do, teen kilowatt ka.\"\n- speaker: speaker_0\n  line: \"Sir, actually main nahi de paungi, kyunki iska idea mujhe nahi hota hai. Jo bhi ye consultation part hai, quotation discuss. To main sirf aapka meeting align kar sakti hoon aur aapka design bhi align karwa sakti hoon.\"\n- speaker: speaker_1\n  line: \"Koi nahi, fir wo baad mein karte hain. Abhi to just ek idea de raha tha. Ah, wo cheez. Okay.\"\n- speaker: speaker_0\n  line: \"To sir, ek video consultation mein aap aaj join kar sakte hain?\"\n- speaker: speaker_1\n  line: \"Nahi, nahi, nahi. Baad mein dekhenge. Koi Okay. To kab call karu sir main aapko?\"\n- speaker: speaker_0\n  line: \"Main shaam 6 baje kar lungi.\"\n- speaker: speaker_1\n  line: \"Okay, sir. Theek hai. Thank you.\"\n",
+        "local_language": "- speaker: speaker_0\n  line: \"Hello?\"\n- speaker: speaker_1\n  line: \"Hello. Uh, Tuushar ji se baat ho rahi hai?\"\n- speaker: speaker_0\n  line: \"Ji.\"\n- speaker: speaker_1\n  line: \"Uh, good afternoon sir, main Ashika baat kar rahi hoon, Solar Square se. Aapka requirement receive hua tha sir, solar ke liye.\"\n- speaker: speaker_0\n  line: \"Hmm.\"\n- speaker: speaker_1\n  line: \"Uh, to aap commercial ke liye plan kar rahe hain, residential ke liye kar rahe ho? Ghar ke liye? Ghar ke liye, ghar ke liye.\"\n- speaker: speaker_0\n  line: \"Okay, okay.\"\n- speaker: speaker_1\n  line: \"Aapka monthly average bill kitna aata hai sir?\"\n- speaker: speaker_0\n  line: \"Uh, per floor, jaise aata hai, teen, saade teen hazaar tak.\"\n- speaker: speaker_1\n  line: \"Okay. Uh, kitne floors hain sir?\"\n- speaker: speaker_0\n  line: \"Teen.\"\n- speaker: speaker_1\n  line: \"3 meter hai sir, aapke? Hmm, 3 meter alag hai.\"\n- speaker: speaker_0\n  line: \"Okay.\"\n- speaker: speaker_1\n  line: \"3 meter hai alag.\"\n- speaker: speaker_0\n  line: \"Okay. Theek hai. Uh, teenon pe installation karna hai sir?\"\n- speaker: speaker_1\n  line: \"Hmm, ek se matlab kuch fark padega? Jaise teen pe karte hain aur ek pe karte to kya fark padta hai matlab?\"\n- speaker: speaker_0\n  line: \"Nahi, nahi. Jaise har meter ke liye ek hi solar lagta hai sir, jaise theek hai? Ek ka batana mujhe. Ek karna ho to.\"\n- speaker: speaker_1\n  line: \"Okay. Roof size kitna square feet hai?\"\n- speaker: speaker_0\n  line: \"Uh, 100 square feet. Ha, 100 gaj ka. 100 gaj ka. Theek hai.\"\n- speaker: speaker_1\n  line: \"Aur roof type jo hai, wo RCC hai sir?\"\n- speaker: speaker_0\n  line: \"RCC matlab? Matlab, jentara wala?\"\n- speaker: speaker_1\n  line: \"Ha, jentara wala.\"\n- speaker: speaker_0\n  line: \"Okay. Meter and property, ye aapke naam pe hai?\"\n- speaker: speaker_1\n  line: \"Ha.\"\n- speaker: speaker_0\n  line: \"Construction complete hai na sir?\"\n- speaker: speaker_1\n  line: \"Completeated hai, rahe hain, bahut time se.\"\n- speaker: speaker_0\n  line: \"Okay. Theek hai. Uh, main company se do free visit provide ki jaati hai sir, jismein koi\"\n- speaker: speaker_1\n  line: \"Nahi, nahi. Ek idea toh do, main, fir bhi kitne tak ka hota hai waise? Do, teen kilowatt ka.\"\n- speaker: speaker_0\n  line: \"Sir, actually main nahi de paungi, kyunki iska idea mujhe nahi hota hai. Jo bhi ye consultation part hai, quotation discuss. To main sirf aapka meeting align kar sakti hoon aur aapka design bhi align karwa sakti hoon.\"\n- speaker: speaker_1\n  line: \"Koi nahi, fir wo baad mein karte hain. Abhi to just ek idea de raha tha. Ah, wo cheez. Okay.\"\n- speaker: speaker_0\n  line: \"To sir, ek video consultation mein aap aaj join kar sakte hain?\"\n- speaker: speaker_1\n  line: \"Nahi, nahi, nahi. Baad mein dekhenge. Koi Okay. To kab call karu sir main aapko?\"\n- speaker: speaker_0\n  line: \"Main shaam 6 baje kar lungi.\"\n- speaker: speaker_1\n  line: \"Okay, sir. Theek hai. Thank you.\"\n"
+    },
+    "speaker_diarization": [
+        {
+            "speaker_0": "Customer"
+        },
+        {
+            "speaker_1": "Agent"
+        }
+    ],
+    "analysis": {
+        "emotion": {
+            "overall": "Neutral",
+            "speaker_analysis": [
+                {
+                    "speaker": "speaker_0",
+                    "emotion": "Neutral",
+                    "details": "The customer is asking questions about the process and pricing, indicating a genuine interest in the service."
+                },
+                {
+                    "speaker": "speaker_1",
+                    "emotion": "Informative",
+                    "details": "The agent is clearly explaining the process and what information is needed from the customer."
+                }
+            ]
+        },
+        "subject": {
+            "primary_topic": "Solar Panel Installation Inquiry",
+            "secondary_topics": [
+                "Residential solar solutions",
+                "Installation process",
+                "Site survey and design",
+                "Quotation and pricing"
+            ]
+        },
+        "call_quality": {
+            "clarity": 9,
+            "agent_performance": {
+                "professionalism": 8,
+                "problem_solving": 7,
+                "communication_skills": 8
+            },
+            "customer_satisfaction": 7
+        }
+    },
+    "assessment": {
+        "summary": "This call is an inquiry from a potential customer regarding solar panel installation for their residence. The agent, Ashika, gathered information about the customer's monthly electricity bill, the number of floors (three), roof type (RCC/gentara), and property ownership. The customer expressed interest in understanding the cost and the process, specifically asking for an idea of the pricing for a 2-3 kilowatt system. The agent explained that a detailed quote requires a site visit and design, which involves two free visits from the company. The customer seemed eager for immediate cost information, but the agent explained she could only facilitate meeting and design alignment, not provide on-the-spot pricing. The customer deferred the consultation to a later time.\n",
+        "recommendations": "- The agent should be equipped with a basic pricing structure or ballpark figures for common system sizes (e.g., 2-3 kW) to provide initial estimates during the first call, even if subject to site verification. This could manage customer expectations better.\n- When a customer asks for pricing, the agent could offer to send a brochure or a link with general pricing information after the call, alongside scheduling the site visit.\n- The agent could be trained on how to gently guide the conversation back to the benefits of a personalized site assessment when direct pricing cannot be provided.\n- Follow up as promised at 6 PM to keep the customer engaged and move the sales process forward.\n"
+    }
+}

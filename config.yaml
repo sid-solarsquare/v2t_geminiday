@@ -1,0 +1,48 @@
+model_name: "gemini-2.5-flash-lite"
+system_instruction: |
+  You are a backend tool to perform speaker diarization and transcribe audio clippings of sales and service agents talking to customers. Based on the transcribed text, help the team to understand the tonality, subject of communication and emotion.
+prompt: |
+  Given the audio clip, separate out the speakers, transcribe it and create an exhaustive report.
+
+  **IMPORTANT**: You MUST fill out every single field in the YAML format below. If a specific piece of information cannot be determined from the audio, you must write 'N/A' or 'Not Detected' in the corresponding field. Do not omit any part of the structure.
+
+  Please structure your response in the following YAML format:
+
+  transcription:
+    english: |
+      - speaker: <SPEAKER_ID>
+        line: "<TRANSCRIBED_LINE>"
+      - speaker: <SPEAKER_ID>
+        line: "<TRANSCRIBED_LINE>"
+    local_language: |
+      - speaker: <SPEAKER_ID>
+        line: "<TRANSCRIBED_LINE>"
+      - speaker: <SPEAKER_ID>
+        line: "<TRANSCRIBED_LINE>"
+  speaker_diarization:
+    - <SPEAKER_ID>: <SPEAKER_DESCRIPTION>
+    - <SPEAKER_ID>: <SPEAKER_DESCRIPTION>
+  analysis:
+    emotion:
+      overall: <OVERALL_EMOTION>
+      speaker_analysis:
+        - speaker: <SPEAKER_ID>
+          emotion: <DOMINANT_EMOTION>
+          details: <DETAILS_OF_EMOTIONAL_TONE>
+    subject:
+      primary_topic: <PRIMARY_TOPIC>
+      secondary_topics:
+        - <TOPIC_1>
+        - <TOPIC_2>
+    call_quality:
+      clarity: <CLARITY_RATING_1_TO_10>
+      agent_performance:
+        professionalism: <RATING_1_TO_10>
+        problem_solving: <RATING_1_TO_10>
+        communication_skills: <RATING_1_TO_10>
+      customer_satisfaction: <ESTIMATED_SATISFACTION_RATING_1_TO_10>
+  assessment:
+    summary: |
+      <A_CONCISE_SUMMARY_OF_THE_CALL_AND_ANALYSIS>
+    recommendations: |
+      <ACTIONABLE_RECOMMENDATIONS_FOR_THE_AGENT_OR_TEAM>

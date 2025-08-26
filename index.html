@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialogue IQ - AI Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* sky-50 */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .card {
+            background-color: #e0f2fe; /* sky-100 */
+            border: 1px solid #bae6fd; /* sky-200 */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .btn-primary {
+            background-color: #38bdf8; /* sky-400 */
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #0ea5e9; /* sky-500 */
+        }
+        .btn-secondary {
+            background-color: #22d3ee; /* cyan-400 */
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: #06b6d4; /* cyan-500 */
+        }
+        .loader {
+            border: 4px solid #f0f9ff;
+            border-top: 4px solid #38bdf8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #audio-list::-webkit-scrollbar { height: 8px; }
+        #audio-list::-webkit-scrollbar-track { background: #e0f2fe; }
+        #audio-list::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 4px; }
+        #audio-list::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+        .wavy-title {
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            padding-top: 12px;
+            color: #0c4a6e;
+        }
+        .wavy-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,5 C20,-5 40,15 60,5 C80,-5 100,15 100,5' stroke='%2338bdf8' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 60px 8px;
+            animation: wave-move 2.5s linear infinite;
+        }
+        @keyframes wave-move {
+            from { background-position-x: 0; }
+            to { background-position-x: -60px; }
+        }
+        .prose { max-width: none; }
+        .analysis-card {
+            background-color: #f0f9ff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e0f2fe;
+            display: flex;
+            flex-direction: column;
+        }
+        .analysis-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0369a1; /* sky-700 */
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .analysis-card h4 i {
+            margin-right: 0.5rem;
+            color: #38bdf8; /* sky-400 */
+        }
+        audio {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .scrollable-content {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="text-sky-900">
+
+    <div class="container mx-auto p-4 md:p-6">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-6 pb-4 border-b border-sky-200">
+            <h1 class="text-3xl wavy-title">Dialogue IQ</h1>
+            <h2 class="text-xl font-semibold text-sky-700">SolarSquare Energy</h2>
+        </header>
+
+        <main>
+            <!-- Audio Files Section -->
+            <div class="card p-4 mb-8">
+                <h2 class="text-xl font-semibold mb-3 flex items-center">
+                    <i class="fas fa-list-ul mr-3 text-sky-500"></i>
+                    Available Audio Files
+                </h2>
+                <div id="audio-list" class="flex space-x-4 overflow-x-auto pb-3">
+                    <!-- Audio files will be populated here -->
+                </div>
+            </div>
+
+            <!-- Analysis Section -->
+            <div id="analysis-section" class="card p-6">
+                <div id="placeholder" class="text-center text-sky-600 py-12">
+                    <i class="fas fa-chart-bar fa-3x mb-4"></i>
+                    <h3 class="text-xl font-medium">Analysis Report</h3>
+                    <p>Select an audio file and click "Analyze" to see the results here.</p>
+                </div>
+                <div id="loader" class="hidden flex-col items-center justify-center py-12">
+                    <div class="loader"></div>
+                    <p class="mt-4 text-lg font-medium text-sky-700">Analyzing audio... Please wait.</p>
+                </div>
+                <div id="results" class="hidden">
+                    <div class="flex justify-between items-center border-b border-sky-200 pb-3 mb-4">
+                        <h2 id="report-title" class="text-2xl font-semibold"></h2>
+                        <button id="export-btn" class="btn-secondary flex items-center">
+                            <i class="fas fa-download mr-2"></i>
+                            Export JSON
+                        </button>
+                    </div>
+
+                    <!-- Reorganized into a 2-column layout -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Left Column -->
+                        <div class="space-y-6">
+                            <div class="analysis-card">
+                                <h4><i class="fas fa-play-circle"></i>Audio Player</h4>
+                                <audio id="audio-player" controls></audio>
+                            </div>
+                            <!-- FIX: Set a fixed height for transcription cards -->
+                            <div class="analysis-card h-96">
+                                <h4><i class="fas fa-microphone-alt"></i>English Transcription</h4>
+                                <div id="transcription-en" class="prose scrollable-content"></div>
+                            </div>
+                            <div class="analysis-card h-96">
+                                <h4><i class="fas fa-language"></i>Local Language Transcription</h4>
+                                <div id="transcription-local" class="prose scrollable-content"></div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-6">
+                            <div class="analysis-card">
+                                <h4><i class="fas fa-chart-line"></i>Call Quality Metrics</h4>
+                                <canvas id="qualityChart"></canvas>
+                            </div>
+                            <!-- FIX: Set a fixed height for analysis cards -->
+                            <div class="analysis-card h-64">
+                                <h4><i class="fas fa-users"></i>Speakers</h4>
+                                <div id="speaker-diarization" class="prose scrollable-content"></div>
+                            </div>
+                            <div class="analysis-card h-64">
+                                <h4><i class="fas fa-smile"></i>Emotion Analysis</h4>
+                                <div id="emotion-analysis" class="prose scrollable-content"></div>
+                            </div>
+                            <div class="analysis-card h-64">
+                                <h4><i class="fas fa-tag"></i>Subject Analysis</h4>
+                                <div id="subject-analysis" class="prose scrollable-content"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full-width Assessment Section -->
+                    <div class="mt-6">
+                        <div class="analysis-card">
+                            <h4><i class="fas fa-clipboard-check"></i>Assessment & Recommendations</h4>
+                            <div id="assessment" class="prose"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_BASE_URL = 'http://localhost:8000';
+            const audioListEl = document.getElementById('audio-list');
+            const placeholderEl = document.getElementById('placeholder');
+            const loaderEl = document.getElementById('loader');
+            const resultsEl = document.getElementById('results');
+            const reportTitleEl = document.getElementById('report-title');
+            const exportBtn = document.getElementById('export-btn');
+            const audioPlayer = document.getElementById('audio-player');
+            let qualityChart = null;
+            let currentAnalysisData = null;
+            let currentFilename = null;
+
+            const speakerIcons = {
+                'speaker_0': 'fas fa-user',
+                'speaker_1': 'fas fa-headset',
+                'Customer': 'fas fa-user',
+                'Agent': 'fas fa-headset'
+            };
+
+            const shortenFilename = (name, maxLength = 20) => {
+                if (name.length <= maxLength) return name;
+                const ext = name.substring(name.lastIndexOf('.'));
+                const basename = name.substring(0, name.lastIndexOf('.'));
+                return `${basename.substring(0, maxLength - ext.length - 3)}...${ext}`;
+            };
+
+            async function fetchAudioFiles() {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/list_audio`);
+                    if (!response.ok) throw new Error('Failed to fetch audio files.');
+                    const data = await response.json();
+                    audioListEl.innerHTML = '';
+                    if (data.audio_files && data.audio_files.length > 0) {
+                        data.audio_files.forEach(file => {
+                            const fileElement = document.createElement('div');
+                            fileElement.className = 'flex-shrink-0 w-64 p-3 border border-sky-200 rounded-lg flex flex-col justify-between bg-sky-50 hover:bg-white hover:shadow-md transition-all';
+                            fileElement.innerHTML = `
+                                <div>
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-file-audio text-sky-500 mr-2"></i>
+                                        <span class="font-semibold text-sm" title="${file.filename}">${shortenFilename(file.filename)}</span>
+                                    </div>
+                                    <p class="text-xs text-sky-600">Duration: ${file.duration_mins > 0 ? file.duration_mins + ' mins' : 'N/A'}</p>
+                                </div>
+                                <button class="btn-primary analyze-btn mt-3 w-full text-sm" data-filename="${file.filename}">Analyze</button>
+                            `;
+                            audioListEl.appendChild(fileElement);
+                        });
+                    } else {
+                        audioListEl.innerHTML = '<p class="text-sky-600">No audio files found in the `audio_files` directory.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error fetching audio files:', error);
+                    audioListEl.innerHTML = `<p class="text-red-500">Error: Could not connect to the server. Is it running?</p>`;
+                }
+            }
+
+            async function analyzeAudio(filename) {
+                placeholderEl.classList.add('hidden');
+                resultsEl.classList.add('hidden');
+                loaderEl.classList.remove('hidden');
+                loaderEl.classList.add('flex');
+                currentFilename = filename;
+
+                audioPlayer.src = `${API_BASE_URL}/audio/${filename}`;
+
+                try {
+                    const formData = new FormData();
+                    formData.append('audio_id', filename);
+                    const response = await fetch(`${API_BASE_URL}/analyze_audio`, { method: 'POST', body: formData });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.detail || 'Analysis failed.');
+                    }
+                    const resultData = await response.json();
+                    currentAnalysisData = resultData;
+                    displayResults(resultData, filename);
+                } catch (error) {
+                    console.error('Error analyzing audio:', error);
+                    placeholderEl.innerHTML = `<p class="text-red-500 text-center">Analysis Failed: ${error.message}</p>`;
+                    placeholderEl.classList.remove('hidden');
+                } finally {
+                    loaderEl.classList.add('hidden');
+                    loaderEl.classList.remove('flex');
+                }
+            }
+
+            const formatTranscription = (transcriptionText, speakerRoleMap) => {
+                if (!transcriptionText || typeof transcriptionText !== 'string') return '<p>Not available.</p>';
+                try {
+                    const lines = transcriptionText.trim().split('\n');
+                    let html = '';
+                    for (let i = 0; i < lines.length; i++) {
+                        if (lines[i].includes('- speaker:')) {
+                            if (i + 1 < lines.length && lines[i+1].includes('line:')) {
+                                const speakerId = lines[i].split('- speaker:')[1]?.trim() || 'Unknown';
+                                const role = speakerRoleMap[speakerId] || speakerId;
+                                const iconClass = speakerIcons[speakerId] || speakerIcons[role] || 'fas fa-microphone';
+                                const text = lines[i+1].split('line:')[1]?.trim().replace(/^"|"$/g, '') || '...';
+                                html += `<p class="flex items-start"><i class="${iconClass} mr-2 text-sky-500 w-4 text-center mt-1"></i><span><strong>${role}:</strong> ${text}</span></p>`;
+                                i++;
+                            }
+                        }
+                    }
+                    return html || '<p>Transcription format is unreadable.</p>';
+                } catch (e) {
+                    console.error("Error parsing transcription:", e);
+                    return `<p class="text-red-500">Could not parse transcription.</p>`;
+                }
+            };
+
+            const formatDiarization = (diarizationData) => {
+                if (!diarizationData || !Array.isArray(diarizationData)) return '<p>Not available.</p>';
+                let html = '<ul>';
+                diarizationData.forEach(item => {
+                    const speakerId = Object.keys(item)[0];
+                    const role = item[speakerId];
+                    const iconClass = speakerIcons[speakerId] || speakerIcons[role] || 'fas fa-microphone';
+                    html += `<li class="flex items-center">
+                                <i class="${iconClass} mr-2 text-sky-500 w-4 text-center"></i>
+                                <strong>${role}</strong> (${speakerId})
+                             </li>`;
+                });
+                html += '</ul>';
+                return html;
+            };
+
+            const formatEmotionAnalysis = (emotionData, speakerRoleMap) => {
+                if (!emotionData) return '<p>Not available.</p>';
+                let html = `<p><strong>Overall:</strong> ${emotionData.overall || 'N/A'}</p>`;
+
+                if (emotionData.speaker_analysis && Array.isArray(emotionData.speaker_analysis)) {
+                    html += '<div class="space-y-4 mt-4">';
+                    emotionData.speaker_analysis.forEach(analysis => {
+                        const role = speakerRoleMap[analysis.speaker] || analysis.speaker;
+                        const iconClass = speakerIcons[analysis.speaker] || speakerIcons[role] || 'fas fa-microphone';
+
+                        html += `<div class="bg-white/60 p-3 rounded-md border border-sky-200">`;
+                        html += `<h5 class="font-semibold flex items-center mb-1"><i class="${iconClass} mr-2 text-sky-500"></i> ${role}</h5>`;
+                        html += `<p><strong>Emotion:</strong> ${analysis.emotion || 'N/A'}</p>`;
+                        html += `<p><strong>Details:</strong> ${analysis.details || 'N/A'}</p>`;
+                        html += `</div>`;
+                    });
+                    html += '</div>';
+                }
+                return html;
+            };
+
+            const formatBlock = (data) => {
+                if (!data) return '<p>Not available.</p>';
+                let html = '';
+                if (Array.isArray(data)) {
+                    html += '<ul class="list-disc list-inside">';
+                    data.forEach(item => {
+                        if (typeof item === 'object') {
+                             for (const [key, value] of Object.entries(item)) {
+                                html += `<li><strong>${key}:</strong> ${value}</li>`;
+                            }
+                        } else {
+                            html += `<li>${item}</li>`;
+                        }
+                    });
+                    html += '</ul>';
+                } else if (typeof data === 'object') {
+                     for (const [key, value] of Object.entries(data)) {
+                        const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        if (typeof value === 'object') {
+                            html += `<p class="font-semibold mt-2">${formattedKey}:</p>` + formatBlock(value);
+                        } else {
+                            html += `<p><strong>${formattedKey}:</strong> ${value.replace(/\n/g, '<br>')}</p>`;
+                        }
+                    }
+                } else {
+                    html = `<p>${data.replace(/\n/g, '<br>')}</p>`;
+                }
+                return html;
+            };
+
+            function displayResults(data, filename) {
+                const speakerRoleMap = {};
+                if (data.speaker_diarization && Array.isArray(data.speaker_diarization)) {
+                    data.speaker_diarization.forEach(item => {
+                        const key = Object.keys(item)[0];
+                        const value = Object.values(item)[0];
+                        speakerRoleMap[key] = value;
+                    });
+                }
+
+                reportTitleEl.textContent = `Report for ${shortenFilename(filename, 30)}`;
+
+                document.getElementById('transcription-en').innerHTML = formatTranscription(data.transcription?.english, speakerRoleMap);
+                document.getElementById('transcription-local').innerHTML = formatTranscription(data.transcription?.local_language, speakerRoleMap);
+                renderQualityChart(data.analysis?.call_quality);
+
+                document.getElementById('speaker-diarization').innerHTML = formatDiarization(data.speaker_diarization);
+                document.getElementById('emotion-analysis').innerHTML = formatEmotionAnalysis(data.analysis?.emotion, speakerRoleMap);
+                document.getElementById('subject-analysis').innerHTML = formatBlock(data.analysis?.subject);
+                document.getElementById('assessment').innerHTML = formatBlock(data.assessment);
+
+                resultsEl.classList.remove('hidden');
+                placeholderEl.classList.add('hidden');
+            }
+
+            function renderQualityChart(qualityData) {
+                const ctx = document.getElementById('qualityChart').getContext('2d');
+                const agentPerformance = qualityData?.agent_performance || {};
+                const labels = ['Clarity', 'Professionalism', 'Problem Solving', 'Communication', 'Satisfaction'];
+                const chartData = [
+                    qualityData?.clarity || 0,
+                    agentPerformance.professionalism || 0,
+                    agentPerformance.problem_solving || 0,
+                    agentPerformance.communication_skills || 0,
+                    qualityData?.customer_satisfaction || 0
+                ];
+
+                if (qualityChart) qualityChart.destroy();
+
+                qualityChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Rating (out of 10)',
+                            data: chartData,
+                            backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                            borderColor: 'rgba(14, 165, 233, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { beginAtZero: true, max: 10, title: { display: true, text: 'Rating' } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            exportBtn.addEventListener('click', () => {
+                if (!currentAnalysisData || !currentFilename) return;
+                const dataStr = JSON.stringify(currentAnalysisData, null, 4);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                const filenameWithoutExt = currentFilename.split('.').slice(0, -1).join('.');
+                link.download = `${filenameWithoutExt}_analysis.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            });
+
+            audioListEl.addEventListener('click', (event) => {
+                const button = event.target.closest('.analyze-btn');
+                if (button) {
+                    const filename = button.dataset.filename;
+                    analyzeAudio(filename);
+                }
+            });
+
+            fetchAudioFiles();
+        });
+    </script>
+
+</body>
+</html>
